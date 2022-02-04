@@ -19,7 +19,8 @@ void VindriktningComponent::loop() {
   while (available()) {
     serialRxBuf[rxBufIdx++] = read();
 
-    delay(15); //TODO: This is not acceptable as per ESPHome's rules (https://esphome.io/guides/contributing.html#runtime)
+    //FIXME: "anything in loop() or setup() should not block" see https://esphome.io/guides/contributing.html#runtime
+    delay(15);
 
     if (rxBufIdx >= 64) {
       clearRxBuf();
