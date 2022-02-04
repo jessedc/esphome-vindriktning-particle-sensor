@@ -18,7 +18,7 @@ VindriktningComponent = vindriktning_ns.class_("VindriktningComponent", uart.UAR
 CONFIG_SCHEMA = (
     sensor.sensor_schema(
         unit_of_measurement=UNIT_MICROGRAMS_PER_CUBIC_METER,
-        icon=ICON_CHEMICAL_WEAPON,
+        icon="mdi:air-filter",
         accuracy_decimals=0,
         device_class=DEVICE_CLASS_PM25,
         state_class=STATE_CLASS_MEASUREMENT,
