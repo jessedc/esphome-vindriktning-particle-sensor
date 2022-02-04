@@ -25,7 +25,7 @@ To attach your ESP8266 to your sensor, follow the excellent build instructions c
 esphome:
     name: vindriktning-pm-1
     platform: ESP8266
-    board: d1_mini_pro
+    board: d1
 
 external_components:
 - source: github://jessedc/esphome-vindriktning-particle-sensor@main
@@ -50,20 +50,10 @@ uart:
     baud_rate: 9600
 
 sensor:
-- platform: custom
-  lambda: |-
-    auto vindriktning_pm25_sensor = new VindriktningComponent(id(uart_bus));
-    App.register_component(vindriktning_pm25_sensor);
-    return {vindriktning_pm25_sensor};
-  sensors:
-    id: uart_vindrikning_pm25
-    name: PM 2.5μm
-    unit_of_measurement: μg/m³
-    accuracy_decimals: 0
-    icon: mdi:air-filter
-    state_class: measurement
-    device_class: pm25
-    filters:
+- platform: vindriktning
+  id: uart_vindrikning_pm25
+  name: PM 2.5μm
+  filters:
     - sliding_window_moving_average:
         window_size: 5
         send_every: 5
@@ -72,18 +62,18 @@ sensor:
 ## Example Log
 
 ```
-[11:46:35][D][custom:072]: Received PM 2.5 reading: 19
-[11:46:37][D][custom:072]: Received PM 2.5 reading: 19
-[11:46:40][D][custom:072]: Received PM 2.5 reading: 19
-[11:46:42][D][custom:072]: Received PM 2.5 reading: 19
-[11:46:44][D][custom:072]: Received PM 2.5 reading: 19
-[11:46:44][D][sensor:125]: 'PM 2.5μm': Sending state 19.00000 μg/m³ with 0 decimals of accuracy
-[11:46:46][D][custom:072]: Received PM 2.5 reading: 19
-[11:47:07][D][custom:072]: Received PM 2.5 reading: 18
-[11:47:08][D][custom:072]: Received PM 2.5 reading: 18
-[11:47:11][D][custom:072]: Received PM 2.5 reading: 18
-[11:47:13][D][custom:072]: Received PM 2.5 reading: 18
-[11:47:13][D][sensor:125]: 'PM 2.5μm': Sending state 18.20000 μg/m³ with 0 decimals of accuracy
+[22:07:10][D][vindriktning:031]: Received PM 2.5 reading: 15
+[22:07:12][D][vindriktning:031]: Received PM 2.5 reading: 15
+[22:07:33][D][vindriktning:031]: Received PM 2.5 reading: 15
+[22:07:34][D][vindriktning:031]: Received PM 2.5 reading: 15
+[22:07:36][D][vindriktning:031]: Received PM 2.5 reading: 15
+[22:07:36][D][sensor:125]: 'PM 2.5μm': Sending state 15.00000 µg/m³ with 0 decimals of accuracy
+[22:07:38][D][vindriktning:031]: Received PM 2.5 reading: 15
+[22:07:41][D][vindriktning:031]: Received PM 2.5 reading: 15
+[22:07:43][D][vindriktning:031]: Received PM 2.5 reading: 15
+[22:07:45][D][vindriktning:031]: Received PM 2.5 reading: 15
+[22:08:06][D][vindriktning:031]: Received PM 2.5 reading: 17
+[22:08:06][D][sensor:125]: 'PM 2.5μm': Sending state 15.40000 µg/m³ with 0 decimals of accuracy
 ```
 
 ## Build Photos
