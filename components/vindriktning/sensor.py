@@ -13,7 +13,9 @@ from esphome.const import (
 DEPENDENCIES = ["uart"]
 
 vindriktning_ns = cg.esphome_ns.namespace("vindriktning")
-VindriktningComponent = vindriktning_ns.class_("VindriktningComponent", uart.UARTDevice, cg.Component)
+VindriktningComponent = vindriktning_ns.class_("VindriktningComponent",
+                                               uart.UARTDevice, cg.Component,
+                                               sensor.Sensor)
 
 CONFIG_SCHEMA = (
     sensor.sensor_schema(
